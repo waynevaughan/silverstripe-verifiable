@@ -65,6 +65,24 @@ class Chainpoint implements BackendProvider
     }
 
     /**
+     * Send an array of hash_id_node to retrieve proofs in binary format from the
+     * Tierion network.
+     *
+     * GETs to the: "/proofs" REST API endpoint.
+     *
+     * @param  array $hashIdNodes
+     * @return string (From GuzzleHttp\Stream::getContents()
+     * @todo
+     */
+    public function getProofs(array $hashIdNodes) : string
+    {
+        $payload = implode(',', $hashIdNodes);
+        $response = $this->client("/proofs", 'GET', $payload);
+
+        return $response->getBody()->getContents() ?? '[]';
+    }
+
+    /**
      * Send an array of hashes for anchoring.
      *
      * POSTs to the: "/hashes" REST API endpoint.

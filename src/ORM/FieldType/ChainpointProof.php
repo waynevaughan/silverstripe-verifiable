@@ -132,7 +132,16 @@ class ChainpointProof extends JSONText
     {
         $data = $data ?? $this->getStoreAsArray();
 
-        return isset($data['anchors']) && count($data['anchors']) <= 1;
+        // There can be two types of proof:
+        // The "binary" kind, as returned from chainpoint.org's /verify endpoint
+        // The "full" proof, as returned from chainpoint.org's /proofs endpoint
+        $isFull = isset($data[0]['proof']);
+
+        if ($isFull) {
+            return isset($data['anchors']) && count($data['anchors']) <= 1;
+        }
+
+        return isset($data['meta']);
     }
 
     /**
