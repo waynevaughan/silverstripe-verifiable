@@ -52,6 +52,20 @@ My\Name\Space\Model\MyModel:
     - PhpTek\Verifiable\Model\VerifiableExtension
 ```
 
+`File` objects need to have the `Versioned` extension applied and are configured a little different in SilverStripe 4 to suit the new Asset Admin:
+
+```YML
+SilverStripe\Assets\File:
+  extensions:
+    - SilverStripe\Versioned\Versioned
+  verifiable_fields:
+    - Title
+    
+SilverStripe\AssetAdmin\Forms\FileFormFactory:
+  extensions:
+    - PhpTek\Verifiable\Model\VerifiableExtension
+```
+
 By default, any fields on your decorated model(s) that you define in the `verifiable_fields` array, will be hashed and submitted to the backend thus:
 
 ```YML

@@ -129,7 +129,7 @@ class VerifiableExtension extends DataExtension
      * Adds a "Verification" tab to the CMS.
      *
      * @param  FieldList $fields
-     * @return void
+     * @return FieldList $fields
      */
     public function updateCMSFields(FieldList $fields)
     {
@@ -162,6 +162,21 @@ class VerifiableExtension extends DataExtension
                 ->setUseButtonTag(true)
                 ->addExtraClass('btn action btn-outline-primary ')
         ]));
+
+        return $fields;
+    }
+
+    /**
+     * Used for File records.
+     *
+     * @param  FieldList $fields
+     * @return void
+     */
+    public function updateFormFields(FieldList $fields)
+    {
+        foreach ($this->updateCMSFields($fields) as $field) {
+            $fields->push($field);
+        }
     }
 
     /**
